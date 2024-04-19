@@ -2,8 +2,8 @@ package rest
 
 import (
 	"fmt"
-	"time"
 	"os"
+	"time"
 
 	"github.com/promacanthus/buildInfo/info"
 )
@@ -18,12 +18,9 @@ type Config struct {
 	RetryMaxWaitTime time.Duration `json:"retry_max_wait_time,omitempty"`
 
 	BaseURLs map[string]string `json:"base_urls,omitempty"`
-
-	// DataStore for calico internal client.
-	DataStore string `json:"data_store,omitempty"`
 }
 
-// DefaultNephilaUserAgent returns the default user agent for Nephila.
+// DefaultUserAgent returns a default user agent string.
 func DefaultUserAgent() string {
 	return buildUserAgent(
 		info.Infos().GitCommit,
@@ -34,6 +31,6 @@ func DefaultUserAgent() string {
 
 // buildUserAgent is a Go function that constructs a user agent string.
 // It takes the command, operating system, architecture, and commit as parameters and returns a string.
-func buildUserAgent(commit, os, arch string) string {
-	return fmt.Sprintf("%s/%s (%s/%s)", os.Args[0], commit, os, arch)
+func buildUserAgent(commit, osInfo, archInfo string) string {
+	return fmt.Sprintf("%s/%s (%s/%s)", os.Args[0], commit, osInfo, archInfo)
 }
